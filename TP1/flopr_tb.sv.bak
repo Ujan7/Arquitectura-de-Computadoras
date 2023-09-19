@@ -1,0 +1,36 @@
+module flopr_tb;
+
+    // Parámetros
+    parameter N = 64; // Ancho de los buses
+
+    // Señales del testbench
+    logic clk, reset;
+    logic [N - 1 : 0] d, q;
+
+    // Instancia del módulo bajo prueba
+    flopr #(N) dut (
+        .clk(clk),
+        .reset(reset),
+        .d(d),
+        .q(q)
+    );
+
+    // Generación del reloj
+    initial begin
+        clk = 0;
+        forever #10 clk = ~clk;
+    end
+
+    // Testbench simulacion
+    initial begin
+        reset = 1;
+        d = 64'b10101010; // Datos de ejemplo
+
+        #10 reset = 0; // Desactivar el reset
+
+        // Simulación durante 20 unidades de tiempo
+        #200;
+        $finish;
+    end
+
+endmodule

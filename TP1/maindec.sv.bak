@@ -1,0 +1,23 @@
+module maindec (input logic [10:0] op,
+					 output logic Reg2Loc, ALUSrc, MemtoReg, RegWrite, MemRead, MemWrite, Branch,
+					 output logic [1:0] ALUop);
+	always_comb
+		casez(op[10:0])
+		111_1100_0010: Reg2Loc = 1'b0, ALUSrc = 1'b0, 
+		111_1100_0000:
+		101_1010_0???:
+		100_0101_1000:
+		110_0101_1000:
+		100_0101_0000:
+		101_0101_0000:
+	
+	
+	
+	end case
+		
+		
+		
+		
+		
+	
+endmodule

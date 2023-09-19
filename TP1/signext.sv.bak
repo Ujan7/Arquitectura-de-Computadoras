@@ -1,0 +1,19 @@
+module signext (
+    input [31:0] a,    // Entrada de 32 bits (Opcode y campo inmediato)
+    output reg signed [63:0] y // Salida de 64 bits extendida con signo
+);
+
+always @(*) begin
+    case (a[31:21]) // Analizar los bits correspondientes al campo de inmediato
+        10'h1E2: // Opcode de LDUR
+        10'h1C2: // Opcode de STUR
+        10'h355: // Opcode de CBZ
+            // Extender el campo de inmediato a 64 bits con signo
+            y = {{42{a[20]}}, a[20:0]};
+        default:
+            // Para otras instrucciones, la salida es 64 bits de ceros
+            y = 64'b0;
+    endcase
+end
+
+endmodule

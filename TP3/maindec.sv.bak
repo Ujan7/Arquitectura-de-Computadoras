@@ -1,0 +1,16 @@
+module maindec (input logic [10:0] op,
+					 output logic Reg2Loc, ALUSrc, MemtoReg, RegWrite, MemRead, MemWrite, Branch,
+					 output logic [1:0] ALUop);
+	always_comb
+		casez(op[10:0])
+		111_1100_0010: Reg2Loc = 1'b0, ALUSrc = 1'b1, MemtoReg = 1'b1, RegWrite = 1'b1, MemRead = 1'b1, MemWrite = 1'b0, Branch = 1b'0, ALUOp = 2b'00;
+		111_1100_0000: Reg2Loc = 1'b1, ALUSrc = 1'b1, MemtoReg = 1'b0, RegWrite = 1'b0, MemRead = 1'b0, MemWrite = 1'b1, Branch = 1b'0, ALUOp = 2b'00;
+		101_1010_0???: Reg2Loc = 1'b1, ALUSrc = 1'b0, MemtoReg = 1'b0, RegWrite = 1'b0, MemRead = 1'b0, MemWrite = 1'b0, Branch = 1b'1, ALUOp = 2b'01;
+		100_0101_1000: Reg2Loc = 1'b0, ALUSrc = 1'b0, MemtoReg = 1'b0, RegWrite = 1'b1, MemRead = 1'b0, MemWrite = 1'b0, Branch = 1b'0, ALUOp = 2b'10;
+		110_0101_1000: Reg2Loc = 1'b0, ALUSrc = 1'b1, MemtoReg = 1'b0, RegWrite = 1'b1, MemRead = 1'b0, MemWrite = 1'b0, Branch = 1b'0, ALUOp = 2b'10;
+		100_0101_0000: Reg2Loc = 1'b0, ALUSrc = 1'b1, MemtoReg = 1'b0, RegWrite = 1'b1, MemRead = 1'b0, MemWrite = 1'b0, Branch = 1b'0, ALUOp = 2b'10;
+		101_0101_0000: Reg2Loc = 1'b0, ALUSrc = 1'b1, MemtoReg = 1'b0, RegWrite = 1'b1, MemRead = 1'b0, MemWrite = 1'b0, Branch = 1b'0, ALUOp = 2b'10;
+		default: Reg2Loc = 1'b0, ALUSrc = 1'b0, MemtoReg = 1'b0, RegWrite = 1'b0, MemRead = 1'b0, MemWrite = 1'b0, Branch = 1b'0, ALUOp = 2b'00;
+	end case
+	
+endmodule
