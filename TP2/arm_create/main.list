@@ -1,0 +1,20 @@
+
+main.elf:     formato del fichero elf64-littleaarch64
+
+
+Desensamblado de la sección .text:
+
+0000000000000000 <mul-0x4>:
+   0:	8b1f03fe 	add	x30, xzr, xzr
+
+0000000000000004 <mul>:
+   4:	b4000090 	cbz	x16, 14 <endmul>
+   8:	8b1103de 	add	x30, x30, x17
+   c:	cb010210 	sub	x16, x16, x1
+  10:	b4ffffbf 	cbz	xzr, 4 <mul>
+
+0000000000000014 <endmul>:
+  14:	f800001e 	stur	x30, [x0]
+
+0000000000000018 <finish>:
+  18:	b400001f 	cbz	xzr, 18 <finish>

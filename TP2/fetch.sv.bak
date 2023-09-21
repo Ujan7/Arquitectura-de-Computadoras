@@ -1,0 +1,11 @@
+module fetch (input logic PCSrc_F, clk, reset,
+				  input logic [63:0] PCBranch_F,
+					output logic [63:0] imem_addr_F);
+	
+	logic [63:0] add_mux, next_addr;
+
+	mux2 #(64) f_mux (.d0(add_mux), .d1(PCBranch_F), .s(PCSrc_F), .y(next_addr));
+	flopr #(64) f_flopr (.clk(clk), .reset(reset), .d(next_addr), .q(imem_addr_F));
+	adder #(64) f_adder (.a(imem_addr_F), .b(64'b100), .y(add_mux));
+	
+endmodule
