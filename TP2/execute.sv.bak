@@ -1,0 +1,24 @@
+module execute (input logic AluSrc, 
+					 input logic [3:0] AluControl
+					 input logic [5:0] PC_E,
+					 input logic [63:0] signImm_E, readData1_E, readData2_E,
+					output logic [63:0] PCBranch_E, aluResult_E, writeData_E,
+					output logic zero_E);
+	
+	logic [63:0] mux_alu, sl2_add;
+	
+	sl2 #(64) e_sl2 (.a(signImm_E), .y(sl2_add));
+	mux2 #(64) e_mux (.d0(readData2_E), .d1(signImm_E), .s(AluSrc), .y(mux_alu));
+	
+	alu e_alu(
+		.a(readData1_E), 
+		.b(mux_alu), 
+		.aluControl(AluControl). 
+		.zero(zero_E), 
+		.result(aluResult_E)
+	);
+	adder #(64) e_adder (.a(PC_E), .b(sl2_add), .y(PCBranch_E));
+	
+	assign writeData_E = readData2_E;
+	
+endmodule
